@@ -1,15 +1,34 @@
 # Length values are in Angstroms, Energy values are in electron volts
 import numpy as np
 from scipy.optimize import minimize
+import math
 def lennard_jones(r, epsilon=0.01, sigma=3.4):
     v = 4*epsilon*((sigma/r)**12-(sigma/r)**6)
     return v
-print(minimize(lennard_jones,4))
-import matplotlib.pyplot as plt
-x = np.linspace(3,6,301)
-plt.plot(x,lennard_jones(x))
-plt.title('Potential energy of Ar dimer vs its bond length')
-plt.xlabel('$Distance\ (Angstroms)$')
-plt.ylabel('$Potential\ Energy\ (eV)$')
-plt.grid(True)
-plt.show()
+def compute_bond_length(atom1:list,atom2:list): # redefining all the code from homework-1-2
+    '''
+    Computes the distance between two atoms
+    Parameters:
+    atom1 (list): Coordinates of the first atom
+    atom2 (list): Coordinates of the second atom
+    Returns:
+    float: distance between the two atoms
+    '''
+    return ((atom1[0]-atom2[0])**2+(atom1[1]-atom2[1])**2+(atom1[2]-atom2[2])**2)**.5
+Ar1 = [0.000,0.000,0.000]
+Ar2 = [0.000,0.000,round(float(minimize(lennard_jones,4).x[0]),3)]
+print("Optimal distance:",compute_bond_length(Ar1,Ar2))
+f = open(r"C:\Users\msuya\Downloads\homework-2-1\Ar2.xyz","w",encoding="utf-8") # I'm confused on where this is supposed to go.
+f.write("2\n")
+f.write("Argon dimer molecule\n") # Writing the .xyz file
+f.write("Ar1 ")
+for x in Ar1:
+    f.write(str(x)+" ")
+f.write("\n")
+f.write("Ar2 ")
+for y in Ar2:
+    f.write(str(y)+" ")
+f.close()
+g = open("Ar2.xyz","r") # Rechecking that the file wrote successfully
+for line in g:
+    print(line)
