@@ -19,16 +19,13 @@ Ar1 = [0.000,0.000,0.000]
 Ar2 = [0.000,0.000,round(float(minimize(lennard_jones,4).x[0]),3)]
 print("Optimal distance:",compute_bond_length(Ar1,Ar2))
 f = open(r"C:\Users\msuya\Downloads\homework-2-1\Ar2.xyz","w",encoding="utf-8") # I'm confused on where this is supposed to go.
-f.write("2\n")
-f.write("Argon dimer molecule\n") # Writing the .xyz file
-f.write("Ar1 ")
+f.write("2\nArgon dimer molecule\nAr ") # Writing the .xyz file
 for x in Ar1:
     f.write(str(x)+" ")
-f.write("\n")
-f.write("Ar2 ")
+f.write("\nAr ")
 for y in Ar2:
     f.write(str(y)+" ")
 f.close()
-g = open("Ar2.xyz","r") # Rechecking that the file wrote successfully
+g = open(r"C:\Users\msuya\Downloads\homework-2-1\Ar2.xyz","r") # Rechecking that the file wrote successfully
 for line in g:
     print(line)
