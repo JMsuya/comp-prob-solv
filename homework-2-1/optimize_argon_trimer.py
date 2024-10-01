@@ -1,5 +1,6 @@
 # Length values are in Angstroms, Energy values are in electron volts
 import numpy as np
+import os
 from scipy.optimize import minimize
 import math
 def lennard_jones(r, epsilon=0.01, sigma=3.4):
@@ -44,7 +45,10 @@ print("Ar1 bond angle:",round(compute_bond_angle(Ar2,Ar1,Ar3)))
 print("Ar2 bond angle:",round(compute_bond_angle(Ar3,Ar2,Ar1)))
 print("Ar3 bond angle:",round(compute_bond_angle(Ar1,Ar3,Ar2)))
 
-f = open(r"C:\Users\msuya\Downloads\homework-2-1\Ar3.xyz","w",encoding="utf-8") # Any non-extensive path fails to work
+if (not("homework-2-1" in os.listdir())): # Generating the directory if it does not exist
+    os.makedirs(os.getcwd()+r"\homework-2-1")
+
+f = open(os.getcwd()+r"\homework-2-1\Ar3.xyz","w",encoding="utf-8") # Encoding the file
 f.write("3\nArgon trimer molecule\nAr ") # Writing the .xyz file
 for x in Ar1:
     f.write(str(x)+" ")
@@ -55,6 +59,8 @@ f.write("\nAr ")
 for z in Ar3:
     f.write(str(z)+" ")
 f.close()
-g = open(r"C:\Users\msuya\Downloads\homework-2-1\Ar3.xyz","r") # Rechecking that the file wrote successfully
+print()
+print("Generated .xyz File:")
+g = open(os.getcwd()+r"\homework-2-1\ar3.xyz","r") # Rechecking that the file wrote successfully
 for line in g:
     print(line)
