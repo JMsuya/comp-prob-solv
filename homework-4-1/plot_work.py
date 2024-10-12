@@ -1,24 +1,16 @@
 import numpy as np
-from scipy.integrate import trapezoid
-from scipy.constants import R
 import matplotlib.pyplot as plt
+import pandas as pd
+import os
 
-V_i = .1 # m^3
-V_f = 3*V_i # m^3
-n = 1 # mol
-T = 300 # K
+iso = pd.read_csv(os.getcwd()+r"\homework-4-1\iso_expansion_300K.csv")
 
-def pressure(V,n,T):
-    P = n*R*T/V
-    return P
+adi = pd.read_csv(os.getcwd()+r"\homework-4-1\adi_expansion_300K.csv")
 
-def work(V_i,V_f,n,T):
-    volume = np.linspace(V_i,V_f,1001)
-    w = -trapezoid(pressure(volume,n,T),volume)
-    return w
-
-volumes = np.linspace(V_i,V_f,1001)
-plt.plot(volumes,work(V_i,volumes,n,T))
+plt.plot(iso["V_f (m^3)"],iso["work (J)"],label="Isothermal")
+plt.plot(adi["V_f (m^3)"],adi["work (J)"],label="Adiabatic")
+plt.legend()
+plt.title("Expansion of 1 mol of gas at 300 K")
 plt.grid()
 plt.xlabel(r"$Final\ Volume\ (m^3)$")
 plt.ylabel("Work (J)")
