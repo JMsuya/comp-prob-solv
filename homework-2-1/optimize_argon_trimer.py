@@ -34,33 +34,32 @@ def V(D): # Defining the function to be minimized
     y3 = D[2]
     E = lennard_jones(r12)+lennard_jones((x3**2+y3**2)**0.5)+lennard_jones(((r12-x3)**2+y3**2)**0.5)
     return E
-values = minimize(V,[4,4,4]).x # calling x gives the optimized values.
-Ar1 = [0.0,0.0,0.0]
-Ar2 = [round(values[0],3),0.0,0.0]
-Ar3 = [round(values[1],3),round(values[2],3),0.0]
-print("r12:",round(compute_bond_length(Ar1,Ar2),3))
-print("r23:",round(compute_bond_length(Ar2,Ar3),3))
-print("r13:",round(compute_bond_length(Ar1,Ar3),3))
-print("Ar1 bond angle:",round(compute_bond_angle(Ar2,Ar1,Ar3)))
-print("Ar2 bond angle:",round(compute_bond_angle(Ar3,Ar2,Ar1)))
-print("Ar3 bond angle:",round(compute_bond_angle(Ar1,Ar3,Ar2)))
+if (__name__=="__main__"):
+    values = minimize(V,[4,4,4]).x # calling x gives the optimized values.
+    Ar1 = [0.0,0.0,0.0]
+    Ar2 = [round(values[0],3),0.0,0.0]
+    Ar3 = [round(values[1],3),round(values[2],3),0.0]
+    print("r12:",round(compute_bond_length(Ar1,Ar2),3))
+    print("r23:",round(compute_bond_length(Ar2,Ar3),3))
+    print("r13:",round(compute_bond_length(Ar1,Ar3),3))
+    print("Ar1 bond angle:",round(compute_bond_angle(Ar2,Ar1,Ar3)))
+    print("Ar2 bond angle:",round(compute_bond_angle(Ar3,Ar2,Ar1)))
+    print("Ar3 bond angle:",round(compute_bond_angle(Ar1,Ar3,Ar2)))
 
-if (not("homework-2-1" in os.listdir())): # Generating the directory if it does not exist
-    os.makedirs(os.getcwd()+r"\homework-2-1")
 
-f = open(os.getcwd()+r"\homework-2-1\Ar3.xyz","w",encoding="utf-8") # Encoding the file
-f.write("3\nArgon trimer molecule\nAr ") # Writing the .xyz file
-for x in Ar1:
-    f.write(str(x)+" ")
-f.write("\nAr ")
-for y in Ar2:
-    f.write(str(y)+" ")
-f.write("\nAr ")
-for z in Ar3:
-    f.write(str(z)+" ")
-f.close()
-print()
-print("Generated .xyz File:")
-g = open(os.getcwd()+r"\homework-2-1\ar3.xyz","r") # Rechecking that the file wrote successfully
-for line in g:
-    print(line)
+    f = open("Ar3.xyz","w",encoding="utf-8") # Encoding the file
+    f.write("3\nArgon trimer molecule\nAr ") # Writing the .xyz file
+    for x in Ar1:
+        f.write(str(x)+" ")
+    f.write("\nAr ")
+    for y in Ar2:
+        f.write(str(y)+" ")
+    f.write("\nAr ")
+    for z in Ar3:
+        f.write(str(z)+" ")
+    f.close()
+    print()
+    print("Generated .xyz File:")
+    g = open("ar3.xyz","r") # Rechecking that the file wrote successfully
+    for line in g:
+        print(line)
