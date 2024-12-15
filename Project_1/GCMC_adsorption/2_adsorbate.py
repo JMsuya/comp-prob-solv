@@ -91,7 +91,7 @@ def attempt_change(lattice, N_A, N_B, N_0, neighbor_indices, param):
         if (N_0 == 0):
             return lattice, N_A, N_B, N_0
         zeros = np.transpose(np.nonzero(lattice==0))
-        site = tuple(zeros[np.random.randint(zeros.shape[0])])
+        site = tuple(zeros[np.random.randint(zeros.shape[0])]) # Random unoccupied position
         
         if (np.random.randint(2) == 0): # Particle 1
             particle = 1
@@ -116,7 +116,7 @@ def attempt_change(lattice, N_A, N_B, N_0, neighbor_indices, param):
         if (N_0 == lattice.size):
             return lattice, N_A, N_B, N_0
         occupied = np.transpose(np.nonzero(lattice))
-        site = tuple(occupied[np.random.randint(occupied.shape[0])])
+        site = tuple(occupied[np.random.randint(occupied.shape[0])]) # Random occupied position
         particle = lattice[site]
         if (particle == 1):
             mu = param["mu_A"]
@@ -288,14 +288,13 @@ if (__name__ == "__main__"):
         # Plot the final lattice configuration
 
         # mu_A = -0.2 eV and T = 0.01 / k
-        axs[3] = plot_lattice(final_lattice[0, 3], axs[3], r'$\mu_H = -0.2$ eV, $T = 0.01 / k$')
+        axs[3] = plot_lattice(final_lattice[0, 3], axs[3], r'$\mu_H = -0.2$ eV, $T = 0.01eV / k$')
 
         # mu_A = -0.1 eV and T = 0.01 / k
-        axs[4] = plot_lattice(final_lattice[3, 3], axs[4], r'$\mu_H = -0.1$ eV, $T = 0.01 / k$')
+        axs[4] = plot_lattice(final_lattice[3, 6], axs[4], r'$\mu_H = -0.1$ eV, $T = 0.019eV / k$')
 
         # mu_A = 0 eV and T = 0.01 / k
-        axs[5] = plot_lattice(final_lattice[6, 3], axs[5], r'$\mu_H = 0$ eV, $T = 0.01 / k$')
+        axs[5] = plot_lattice(final_lattice[6, 3], axs[5], r'$\mu_H = 0$ eV, $T = 0.01eV / k$')
 
         plt.tight_layout()
         plt.show()
-        
